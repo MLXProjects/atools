@@ -41,5 +41,5 @@ rem build app
 	-L"!LIBAROMA_OUT!" ^
 	!LIBAROMA_DEPENDS! ^
 	-I"!LIBAROMA_SOURCE!\include" ^
-	-o "!LIBAROMA_OUT!\!APP_NAME!.exe"
+	-o "!LIBAROMA_OUT!\!APP_NAME!"
 endlocal
