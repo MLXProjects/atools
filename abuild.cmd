@@ -52,8 +52,11 @@ for /f "tokens=*" %%F in ('dir /b /a:-d "%LIBAROMA_SOURCE%\src\hid\*.c"') do (
 	call set LIBAROMA_HIDSRC=%%LIBAROMA_HIDSRC%% "%LIBAROMA_SOURCE%\src\hid\%%F"
 )
 set "LIBAROMA_MINZIPSRC= "
-if not "%LIBAROMA_ZIP%"=="no" for /f "tokens=*" %%F in ('dir /b /a:-d "%LIBAROMA_SOURCE%\src\minzip\*.c"') do (
-	call set LIBAROMA_MINZIPSRC=%%LIBAROMA_MINZIPSRC%% "%LIBAROMA_SOURCE%\src\minzip\%%F"
+if not "%LIBAROMA_ZIP%"=="no" (
+	for /f "tokens=*" %%F in ('dir /b /a:-d "%LIBAROMA_SOURCE%\src\minzip\*.c"') do (
+		call set LIBAROMA_MINZIPSRC=%%LIBAROMA_MINZIPSRC%% "%LIBAROMA_SOURCE%\src\minzip\%%F"
+	)
+	set LIBAROMA_CFLAGS=!LIBAROMA_CFLAGS! -I"%LIBAROMA_SOURCE%\src\minzip"
 )
 set "LIBAROMA_UISRC= "
 for /f "tokens=*" %%F in ('dir /b /a:-d "%LIBAROMA_SOURCE%\src\ui\*.c"') do (
