@@ -1,6 +1,7 @@
 @echo off
 rem delay variable expansion & load settings
 setlocal enabledelayedexpansion
+rem check if first parameter is library or config name
 if exist "config-%~1.txt" set CUSTOM_CFG=yes
 if defined CUSTOM_CFG (
 	call _setldr.cmd %1
@@ -9,7 +10,7 @@ if "%LIBAROMA_SOURCE%"=="" goto :eof
 if "%LIBAROMA_PLATFORM%"=="" goto :eof
 
 rem shift params if needed
-if defined CUSTOM_CFG shift
+if defined CUSTOM_CFG shift && set CUSTOM_CFG=
 
 rem check for out\libs folders
 if not exist "%LIBAROMA_OUT%\libs\" mkdir "%LIBAROMA_OUT%\libs"

@@ -5,7 +5,7 @@ call _setldr.cmd %1
 if "%LIBAROMA_SOURCE%"=="" goto :eof
 if "%LIBAROMA_PLATFORM%"=="" goto :eof
 
-if not exist "%LIBAROMA_OUT%\libadeps.a" call alibs.cmd
+if not exist "%LIBAROMA_OUT%\libadeps.a" call alibs.cmd %1
 if exist "%LIBAROMA_OUT%\aroma\" rd /s /q "%LIBAROMA_OUT%\aroma"
 mkdir "%LIBAROMA_OUT%\aroma"
 cd "%LIBAROMA_OUT%\aroma"

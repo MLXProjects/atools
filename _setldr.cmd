@@ -2,7 +2,6 @@
 set LA_GENERIC_CFLAGS=-Wl,--no-as-needed -D_LARGEFILE64_SOURCE -fPIC -DPIC
 set CFG_NAME=config.txt
 if not "%~1"=="" set CFG_NAME=config-%~1.txt
-echo Using !CFG_NAME!
 
 for /f "usebackq tokens=1,2 delims==" %%a in ("!CFG_NAME!") do (
 	rem get key and value from tokens
