@@ -1,0 +1,31 @@
+# Libaroma source path
+LIBAROMA_SOURCE=D:\projects\libaroma
+
+# Target platform (where libaroma will run)
+LIBAROMA_PLATFORM=linux
+
+# Compiler & archiver
+#LIBAROMA_GCC=gcc.exe
+#LIBAROMA_AR=ar.exe
+LIBAROMA_GCC="D:\armhf-6.3\bin\arm-linux-gnueabihf-gcc.exe"
+LIBAROMA_AR="D:\armhf-6.3\bin\arm-linux-gnueabihf-ar.exe"
+
+# Debug & log settings
+LIBAROMA_BUILDINFO=yes
+LIBAROMA_DEBUG=no
+LIBAROMA_MEMDEBUG=no
+LIBAROMA_LOGLEVEL=5
+LIBAROMA_LOGFILE=2
+
+# CPU optimization to be used
+LIBAROMA_CPU=neon
+
+# Turn additional features on/off
+LIBAROMA_ZIP=no
+LIBAROMA_SVG=no
+LIBAROMA_JPEG=no
+LIBAROMA_OPENMP=no
+LIBAROMA_HARFBUZZ=no
+# (not supported yet)
+# LIBAROMA_DRM=no
+LIBAROMA_WARNINGS=no
