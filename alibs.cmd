@@ -144,7 +144,7 @@ if "%LIBAROMA_CPU%"=="neon" (
 		..\..\..\jpeg\jsimd_neon.c ^
 		..\..\..\jpeg\jmem-android.c
 	set JPEG_CFLAGS=%JPEG_CFLAGS% -DNV_ARM_NEON -DANDROID_TILE_BASED_DECODE
-)
+) else set JPEG_OPTIMIZATIONS=..\..\..\jpeg\jmemnobs.c
 %LIBAROMA_GCC% -c ^
 	%LA_GENERIC_CFLAGS% ^
 	!JPEG_CFLAGS! ^
