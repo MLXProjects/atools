@@ -1,9 +1,11 @@
 @echo off
-rem delay variable expansion & load config.txt
+rem delay variable expansion & load settings
 setlocal enabledelayedexpansion
-call _setldr.cmd
+call _setldr.cmd %1
+if "%LIBAROMA_SOURCE%"=="" goto :eof
+if "%LIBAROMA_PLATFORM%"=="" goto :eof
 
-if not exist %LIBAROMA_OUT%\libadeps.a call alibs.cmd
+if not exist "%LIBAROMA_OUT%\libadeps.a" call alibs.cmd
 if exist "%LIBAROMA_OUT%\aroma\" rd /s /q "%LIBAROMA_OUT%\aroma"
 mkdir "%LIBAROMA_OUT%\aroma"
 cd "%LIBAROMA_OUT%\aroma"
@@ -14,7 +16,7 @@ rem setup platform flags
 if "%LIBAROMA_PLATFORM%"=="sdl" (
 	set LIBAROMA_CFLAGS=!LIBAROMA_CFLAGS! -DLIBAROMA_FB_INITHELPER
 ) else if "%LIBAROMA_PLATFORM%"=="sdl2" (
-	rem for SDL2 revert platform to SDL (they're common)
+	rem for SDL2 revert platform to SDL (they're common) and set sdl2 flag
 	set LIBAROMA_PLATFORM=sdl
 	set LIBAROMA_CFLAGS=!LIBAROMA_CFLAGS! -DLIBAROMA_FB_INITHELPER -DLIBAROMA_PLATFORM_SDL2
 )
@@ -25,9 +27,9 @@ if "%LIBAROMA_JPEG%"=="no" (
 	set LIBAROMA_CFLAGS=!LIBAROMA_CFLAGS! -DLIBAROMA_CONFIG_NOJPEG
 ) else set LIBAROMA_CFLAGS=!LIBAROMA_CFLAGS! -I..\..\jpeg
 if not "%LIBAROMA_OPENMP%"=="no" set LIBAROMA_CFLAGS=!LIBAROMA_CFLAGS! -DLIBAROMA_CONFIG_OPENMP -fopenmp
-if "%LIBAROMA_HARFBUZZ%"=="no" (
-	set LIBAROMA_CFLAGS=!LIBAROMA_CFLAGS! -DLIBAROMA_CONFIG_TEXT_NOHARFBUZZ
-) else set LIBAROMA_CFLAGS=!LIBAROMA_CFLAGS! -I..\..\harfbuzz\src
+if "%LIBAROMA_HARFBUZZ%"=="yes" (
+	set LIBAROMA_CFLAGS=!LIBAROMA_CFLAGS! -I..\..\harfbuzz\src
+) else set LIBAROMA_CFLAGS=!LIBAROMA_CFLAGS! -DLIBAROMA_CONFIG_TEXT_NOHARFBUZZ
 rem list source files
 set "LIBAROMA_PLATSRC= "
 for /f "tokens=*" %%F in ('dir /b /a:-d "%LIBAROMA_SOURCE%\src\plat\!LIBAROMA_PLATFORM!\*.c"') do (

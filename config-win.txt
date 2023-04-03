@@ -2,13 +2,11 @@
 LIBAROMA_SOURCE=D:\projects\libaroma
 
 # Target platform (where libaroma will run)
-LIBAROMA_PLATFORM=linux
+LIBAROMA_PLATFORM=sdl
 
 # Compiler & archiver
-#LIBAROMA_GCC=gcc.exe
-#LIBAROMA_AR=ar.exe
-LIBAROMA_GCC="D:\armhf-6.3\bin\arm-linux-gnueabihf-gcc.exe"
-LIBAROMA_AR="D:\armhf-6.3\bin\arm-linux-gnueabihf-ar.exe"
+LIBAROMA_GCC=gcc.exe
+LIBAROMA_AR=ar.exe
 
 # Debug & log settings
 LIBAROMA_DEBUG=no
@@ -18,9 +16,10 @@ LIBAROMA_LOGFILE=2
 
 # Build/output settings
 LIBAROMA_BUILDINFO=yes
+LIBAROMA_NOWINCONSOLE=yes
 
 # CPU optimization to be used
-LIBAROMA_CPU=neon
+LIBAROMA_CPU=ssse3
 
 # Turn additional features on/off
 LIBAROMA_ZIP=no

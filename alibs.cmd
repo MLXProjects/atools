@@ -1,7 +1,15 @@
 @echo off
 rem delay variable expansion & load settings
 setlocal enabledelayedexpansion
-call _setldr.cmd
+if exist "config-%~1.txt" set CUSTOM_CFG=yes
+if defined CUSTOM_CFG (
+	call _setldr.cmd %1
+) else call _setldr.cmd
+if "%LIBAROMA_SOURCE%"=="" goto :eof
+if "%LIBAROMA_PLATFORM%"=="" goto :eof
+
+rem shift params if needed
+if defined CUSTOM_CFG shift
 
 rem check for out\libs folders
 if not exist "%LIBAROMA_OUT%\libs\" mkdir "%LIBAROMA_OUT%\libs"
@@ -11,7 +19,8 @@ set TARGET_LIBS=zlib png freetype
 if "%1"=="" (
 	if "%LIBAROMA_JPEG%"=="yes" set TARGET_LIBS=!TARGET_LIBS! jpeg
 	if "%LIBAROMA_HARFBUZZ%"=="yes" set TARGET_LIBS=!TARGET_LIBS! harfbuzz
-) else set TARGET_LIBS=%*
+	rem cannot use %* because of param shifting ignored by it
+) else set TARGET_LIBS=%1 %2 %3 %4 %5
 
 rem build libraries from list
 for %%i in (!TARGET_LIBS!) do (
