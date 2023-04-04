@@ -18,10 +18,11 @@ cd "%LIBAROMA_OUT%\libs"
 rem setup libraries to be built
 set TARGET_LIBS=zlib png freetype
 if "%1"=="" (
+	if "%LIBAROMA_PLATFORM%"=="linux" if "%LIBAROMA_DRM%"=="yes" set TARGET_LIBS=!TARGET_LIBS! drm
 	if "%LIBAROMA_JPEG%"=="yes" set TARGET_LIBS=!TARGET_LIBS! jpeg
 	if "%LIBAROMA_HARFBUZZ%"=="yes" set TARGET_LIBS=!TARGET_LIBS! harfbuzz
 	rem cannot use %* because of param shifting ignored by it
-) else set TARGET_LIBS=%1 %2 %3 %4 %5
+) else set TARGET_LIBS=%1 %2 %3 %4 %5 %6
 
 rem build libraries from list
 for %%i in (!TARGET_LIBS!) do (
@@ -267,6 +268,20 @@ set HARFBUZZ_CFLAGS=-DHB_NO_MT -DHAVE_OT -DHAVE_UCDN -DHAVE_FREETYPE
   -I..\..\..\freetype\builds ^
   -I..\..\..\freetype\include ^
   -I..\..\..\harfbuzz\src
+goto :eof
+:drm
+rem Skip drm if incompatible/disabled
+if not "%LIBAROMA_PLATFORM%"=="linux" echo DRM library not needed && goto :eof
+if not "%LIBAROMA_DRM%"=="yes" echo DRM library not needed && goto :eof
+set DRM_CFLAGS=-DUSE_MMAP -D_GNU_SOURCE -DMAJOR_IN_SYSMACROS
+%LIBAROMA_GCC% -c ^
+	%LA_GENERIC_CFLAGS% ^
+	!DRM_CFLAGS! ^
+	..\..\..\drm\xf86drm.c ^
+	..\..\..\drm\xf86drmMode.c ^
+	..\..\..\drm\xf86drmHash.c ^
+	..\..\..\drm\xf86drmRandom.c ^
+  -I..\..\..\drm
 goto :eof
 
 :end

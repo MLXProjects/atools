@@ -18,7 +18,7 @@ LIBAROMA_LOGFILE=0
 LIBAROMA_BUILDINFO=no
 
 # CPU optimization to be used
-LIBAROMA_CPU=neon
+LIBAROMA_CPU=none
 
 # Turn additional features on/off
 LIBAROMA_ZIP=no
@@ -26,6 +26,5 @@ LIBAROMA_SVG=no
 LIBAROMA_JPEG=no
 LIBAROMA_OPENMP=no
 LIBAROMA_HARFBUZZ=no
-# (not supported yet)
-# LIBAROMA_DRM=no
+LIBAROMA_DRM=no
 LIBAROMA_WARNINGS=no
