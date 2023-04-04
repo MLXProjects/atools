@@ -30,7 +30,7 @@ echo Building !APP_NAME!
 rem build source list
 set "app_src= "
 for /f "tokens=*" %%F in ('dir /b /a:-d "!APP_PATH!\*.c"') do call set app_src=%%app_src%% "!APP_PATH!\%%F"
-if "LIBAROMA_PLATFORM"=="linux" (
+if "%LIBAROMA_PLATFORM%"=="linux" (
 rem if building for linux, set static and use .a files as libs
 	set LIBAROMA_DEPENDS=-static -laroma -ladeps !LIBAROMA_DEPENDS!
 rem otherwise, just use them as regular objects
