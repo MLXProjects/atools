@@ -1,4 +1,4 @@
-# Libaroma source path
+# Libaroma source path (UPDATE THIS)
 LIBAROMA_SOURCE=D:\projects\libaroma
 
 # Target platform (where libaroma will run)
@@ -11,12 +11,12 @@ LIBAROMA_AR=ar.exe
 # Debug & log settings
 LIBAROMA_DEBUG=no
 LIBAROMA_MEMDEBUG=no
-LIBAROMA_LOGLEVEL=5
-LIBAROMA_LOGFILE=2
+LIBAROMA_LOGLEVEL=3
+LIBAROMA_LOGFILE=0
 
 # Build/output settings
-LIBAROMA_BUILDINFO=yes
-LIBAROMA_NOWINCONSOLE=yes
+LIBAROMA_BUILDINFO=no
+LIBAROMA_NOWINCONSOLE=no
 
 # CPU optimization to be used
 LIBAROMA_CPU=ssse3
