@@ -1,4 +1,4 @@
-# Latools
+# atools
 Libaroma tools & dependencies for easy building (using legacy-like build system)
 ## How to use
 Set up config.txt:  
