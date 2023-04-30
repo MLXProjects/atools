@@ -3,7 +3,7 @@ rem delay variable expansion & load settings
 setlocal enabledelayedexpansion
 call _setldr.cmd %1
 if "%LIBAROMA_SOURCE%"=="" goto :eof
-if "%LIBAROMA_PLATFORM%"=="" goto :eof
+if "!LIBAROMA_PLATFORM!"=="" goto :eof
 
 if not exist "%LIBAROMA_OUT%\libadeps.a" call alibs.cmd %1
 if exist "%LIBAROMA_OUT%\aroma\" rd /s /q "%LIBAROMA_OUT%\aroma"
@@ -13,12 +13,16 @@ cd "%LIBAROMA_OUT%\aroma"
 rem additional variables for compiling
 set LIBAROMA_CFLAGS=-c -Wno-unused-command-line-argument -Wno-ignored-optimization-argument -Wno-unknown-warning-option
 rem setup platform flags
-if "%LIBAROMA_PLATFORM%"=="sdl" (
+if "!LIBAROMA_PLATFORM!"=="sdl" (
 	set LIBAROMA_CFLAGS=!LIBAROMA_CFLAGS! -DLIBAROMA_FB_INITHELPER
-) else if "%LIBAROMA_PLATFORM%"=="sdl2" (
+) else if "!LIBAROMA_PLATFORM!"=="sdl2" (
 	rem for SDL2 revert platform to SDL (they're common) and set sdl2 flag
 	set LIBAROMA_PLATFORM=sdl
 	set LIBAROMA_CFLAGS=!LIBAROMA_CFLAGS! -DLIBAROMA_FB_INITHELPER -DLIBAROMA_PLATFORM_SDL2
+)
+if defined LIBAROMA_PLATFORM_ANDROID (
+	rem for android just set flag
+	set LIBAROMA_CFLAGS=!LIBAROMA_CFLAGS! -DANDROID
 )
 rem setup main flags
 if "%LIBAROMA_SVG%"=="no" set LIBAROMA_CFLAGS=!LIBAROMA_CFLAGS! -DLIBAROMA_CONFIG_NOSVG
@@ -86,7 +90,7 @@ if "%LIBAROMA_LOGFILE%"=="" (
 if "%LIBAROMA_BUILDINFO%"=="yes" set LIBAROMA_CFLAGS=!LIBAROMA_CFLAGS! -DLIBAROMA_CONFIG_COMPILER_MESSAGE=1
 
 echo Building libaroma
-%LIBAROMA_GCC% ^
+%LIBAROMA_GCC% -g -ggdb ^
 	%LA_GENERIC_CFLAGS% ^
 	!LIBAROMA_CFLAGS! ^
 	^

@@ -19,8 +19,8 @@ for /f "usebackq tokens=1,2 delims==" %%a in ("!CFG_NAME!") do (
 	)
 )
 rem check for must-have variables
-if "%LIBAROMA_SOURCE%"=="" call :fail LIBAROMA_SOURCE && goto :eof
-if "%LIBAROMA_PLATFORM%"=="" call :fail LIBAROMA_PLATFORM && goto :eof
+if "!LIBAROMA_SOURCE!"=="" call :fail LIBAROMA_SOURCE && goto :eof
+if "!LIBAROMA_PLATFORM!"=="" call :fail LIBAROMA_PLATFORM && goto :eof
 
 rem setup generic flags
 if "!LIBAROMA_DEBUG!"=="yes" (
@@ -30,10 +30,14 @@ if "!LIBAROMA_WARNINGS!"=="yes" (
 	set LA_GENERIC_CFLAGS=!LA_GENERIC_CFLAGS! -Wall -Wextra
 ) else set LA_GENERIC_CFLAGS=!LA_GENERIC_CFLAGS! -w
 if "!LIBAROMA_CPU!"=="neon" set LA_GENERIC_CFLAGS=!LA_GENERIC_CFLAGS! -mfloat-abi=hard -mfpu=neon -D__ARM_NEON
-if "!LIBAROMA_CPU!"=="ssse3" set LA_GENERIC_CFLAGS=!LA_GENERIC_CFLAGS! -mssse3 -D__i386
+if "!LIBAROMA_CPU!"=="sse2" set LA_GENERIC_CFLAGS=!LA_GENERIC_CFLAGS! -msse2 -D__i386
 if "!LIBAROMA_NOWINCONSOLE!"=="yes" set LA_GENERIC_CFLAGS=!LA_GENERIC_CFLAGS! -mwindows
 rem setup out folder name
-set LIBAROMA_OUT=out-%LIBAROMA_PLATFORM%
+if "!LIBAROMA_PLATFORM!"=="android" (
+	set LIBAROMA_PLATFORM=linux
+	set LIBAROMA_PLATFORM_ANDROID=yes
+)
+set LIBAROMA_OUT=out-!LIBAROMA_PLATFORM!
 rem if custom config in use, replace platform with config name
 if not "%~1"=="" set LIBAROMA_OUT=out-%~1
 rem append optimization name if set
