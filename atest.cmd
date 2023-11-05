@@ -12,6 +12,11 @@ if "%2"=="" (
 	set APP_NAME=%~n2
 	call _setldr.cmd %1
 )
+rem use default test if no name passed
+if "!APP_NAME!"=="" (
+	set APP_PATH=%~dp0\test
+	set APP_NAME=test
+)
 
 if not exist !LIBAROMA_OUT!\libaroma.a call abuild.cmd
 

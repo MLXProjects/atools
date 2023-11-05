@@ -7,7 +7,9 @@ void winmain(){
 		printf("win failed\n");
 		return;
 	}
-	LIBAROMA_CONTROLP ctl = libaroma_ctl_progress(win, 0, 0, 0, 48, 48, LIBAROMA_CTL_PROGRESS_INDETERMINATE|LIBAROMA_CTL_PROGRESS_CIRCULAR, 0, 0);
+	LIBAROMA_CONTROLP ctl = libaroma_ctl_progress(win, 0, 
+								(win->width-48)/2, (win->height-48)/2, 48, 48, 
+								LIBAROMA_CTL_PROGRESS_INDETERMINATE|LIBAROMA_CTL_PROGRESS_CIRCULAR, 0, 0);
 	if (!ctl){
 		printf("ctl failed\n");
 		return;
