@@ -1,5 +1,5 @@
 # atools
-Libaroma tools & dependencies for easy building (using legacy-like build system)
+Small environment to build libaroma easily on Windows
 ## How to use
 Set up config.txt:  
 - set `LIBAROMA_SOURCE` to wherever you've downloaded main libaroma repository
